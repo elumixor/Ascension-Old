@@ -1,0 +1,4 @@
+TestObject {
+    v3 position { .3f, .4f, .5f }
+    f radius { 0.f }
+}
