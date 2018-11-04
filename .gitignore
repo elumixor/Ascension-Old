@@ -194,3 +194,10 @@ dkms.conf
 .idea/sbt.xml
 .idea/vcs.xml
 Desktop/.idea
+commit.txt
+Cloud/src/main/resources/
+Cloud/src/test/
+Cloud/target/generated-sources/
+Desktop/meshes/__pycache__/
+Desktop/meshes/vertex.pyc
+Desktop/src/graphics/ascml/__pycache__/
