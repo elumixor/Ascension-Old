@@ -11,14 +11,14 @@ int main() {
     if (!hndl) {
         return -1;            // library not present
     }
-
+/**/
     auto ascml = (AscmlApi *) dlsym(hndl, "api");
     ascml->program = &ASC::GRAPHICS::PROGRAM::active;
 
     ASC::GRAPHICS::SCENES::Base *dynamicScene = ascml->scenes["DynamicScene"]();
 
     // initialize mainframe
-    auto mf = ASC::GRAPHICS::Mainframe::instance();
+    auto mf = ASC::GRAPHICS::Mainframe::in/**/stance();
     // set start states
 //    mf->scene = ASC::GRAPHICS::SCENES::Home::instance();
     mf->scene = dynamicScene;
