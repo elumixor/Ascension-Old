@@ -1,8 +1,13 @@
 # Ascension
 
-* [Visit wiki pages](wikis/home) to find out more about more about
+* [Visit wiki pages](https://gitlab.fel.cvut.cz/B181_BD6B33EAR/yazykvla/wikis/home) to find out more about more about
 project idea, goals and objectives.
-* [See project implementation](wikis/implementation) about project structure 
+* [See project implementation](https://gitlab.fel.cvut.cz/B181_BD6B33EAR/yazykvla/wikis/implementation) about project structure 
+
+
+* [Glossary]() 
+
+
 * [Project vision]()
 * [Software Requirements Specification]()
 * [Business plan]()
