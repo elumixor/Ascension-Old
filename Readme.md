@@ -1,5 +1,6 @@
 # Ascension
 
+* [Official website](google.com/notFound)
 * [Visit wiki pages](https://gitlab.fel.cvut.cz/B181_BD6B33EAR/yazykvla/wikis/home) to find out more about more about
 project idea, goals and objectives.
 * [See project implementation](https://gitlab.fel.cvut.cz/B181_BD6B33EAR/yazykvla/wikis/implementation) about project structure 
@@ -11,6 +12,9 @@ project idea, goals and objectives.
 * [Project vision]()
 * [Software Requirements Specification]()
 * [Business plan]()
+
+
+* [Desktop application]()
 
 ### Current tasks:
 * Conceptualize, lay out application's main goals
