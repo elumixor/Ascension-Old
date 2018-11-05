@@ -1,7 +1,7 @@
 # Ascension
 
 * [Official website](google.com/notFound)
-* [Visit wiki pages](https://github.com/elumixor/Ascension/wiki) to find out more about more about
+* [Visit wiki pages](https://github.com/elumixor/Ascension/wiki/Ascension) to find out more about more about
 project idea, goals and objectives.
 * [See project implementation](https://github.com/elumixor/Ascension/wiki/implementation/structure) about project structure 
 
