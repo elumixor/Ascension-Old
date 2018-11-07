@@ -36,7 +36,7 @@ project idea, goals and objectives.
 * [See project implementation](https://github.com/elumixor/Ascension/wiki/implementation) about project structure 
 
 
-* [Glossary](https://github.com/elumixor/Ascension/wiki/gloassary) 
+* [Glossary](https://github.com/elumixor/Ascension/wiki/gloassary-and-abbreviations) 
 
 
 * [Project vision]()
