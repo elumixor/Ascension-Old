@@ -84,7 +84,7 @@ namespace detail
 		E0...3    = what index the n-th element of this swizzle refers to in the unswizzled vec
 
 		DUPLICATE_ELEMENTS = 1 if there is a repeated element, 0 otherwise (used to specialize swizzles
-			containing duplicate elements so that they cannot be used as r-values).            
+			containing duplicate resources so that they cannot be used as r-values).
 	*/
 	template <typename ValueType, precision P, typename VecType, int N, int E0, int E1, int E2, int E3, int DUPLICATE_ELEMENTS>
 	struct _swizzle_base2 : public _swizzle_base1<ValueType, P, VecType,E0,E1,E2,E3,N>
@@ -166,7 +166,7 @@ namespace detail
 		}
 	};
 
-	// Specialization for swizzles containing duplicate elements.  These cannot be modified.
+	// Specialization for swizzles containing duplicate resources.  These cannot be modified.
 	template <typename ValueType, precision P, typename VecType, int N, int E0, int E1, int E2, int E3>
 	struct _swizzle_base2<ValueType, P, VecType,N,E0,E1,E2,E3,1> : public _swizzle_base1<ValueType, P, VecType,E0,E1,E2,E3,N>
 	{

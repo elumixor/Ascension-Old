@@ -37,7 +37,7 @@ static void resizeCallback(GLFWwindow *, int width, int height) {
                                            (float) width / (float) height, 0.1f, 100.0f);
 }
 
-void GL::init(unsigned width, unsigned height, const char *title, unsigned int vsync) {
+void GL::init(unsigned width, unsigned height, CString title, unsigned int vsync) {
     glewExperimental = GL_TRUE;
 
     if (!glfwInit()) {

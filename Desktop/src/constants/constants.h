@@ -5,6 +5,8 @@
 #ifndef ASCENSION_CONSTANTS_H
 #define ASCENSION_CONSTANTS_H
 
+#include "code_organizers.h"
+
 namespace ASC {
     namespace CONSTANTS {
         namespace CONSTRAINTS {
@@ -14,7 +16,7 @@ namespace ASC {
             extern const unsigned window_width;
             extern const unsigned window_height;
             extern const unsigned vsync;
-            extern const char *window_title;
+            extern CString const window_title;
             extern const unsigned gl_version_major;
             extern const unsigned gl_version_minor;
             extern const float persepctive_zoom;
@@ -23,35 +25,38 @@ namespace ASC {
             extern const unsigned gradient_point_factor;
         }
         namespace PATHS {
-            namespace PROGRAM {
-                extern const char *gradient_background[3];
-                extern const char *home[2];
-            }
+            struct Program {
+                CString vertex;
+                CString fragment;
+                CString geometry;
+            };
+            extern const Program program;
             namespace MESHES {
-                extern const char * const home[1];
+                extern CString const home[1];
+                extern CString const base;
             }
         }
         namespace RESOURCES {
             namespace PROGRAM {
-                extern const char *gradient_background;
-                extern const char *home;
+                extern CString gradient_background;
+                extern CString home;
             }
         }
         namespace UNIFORMS {
             // Gradient Background
             namespace GRB {
-                extern const char *points;
-                extern const char *points_count;
-                extern const char *point_color;
-                extern const char *point_location;
-                extern const char *point_radius;
-                extern const char *point_factor;
+                extern CString points;
+                extern CString points_count;
+                extern CString point_color;
+                extern CString point_location;
+                extern CString point_radius;
+                extern CString point_factor;
             }
             // Matrices
             namespace MATRICES {
-                extern const char *projection;
-                extern const char *view;
-                extern const char *model;
+                extern CString projection;
+                extern CString view;
+                extern CString model;
             }
         }
         namespace ERRORS {

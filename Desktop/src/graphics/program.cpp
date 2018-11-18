@@ -8,8 +8,12 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <constants/constants.h>
+#include <util/util.h>
+#include "graphics.h"
 
 using namespace ASC::GRAPHICS;
+
 unsigned PROGRAM::active{0};
 
 static int infoLogLength;
@@ -21,51 +25,51 @@ enum Shaders {
 };
 
 // bool
-void PROGRAM::Uniform::set_bool(const char *name, bool value, unsigned int program) {
+void PROGRAM::set_bool(CString name, bool value, unsigned int program) {
     glUniform1i(glGetUniformLocation(program, name), (int) value);
 }
 
 // int
-void PROGRAM::Uniform::set_int(const char *name, int value, unsigned int program) {
+void PROGRAM::set_int(CString name, int value, unsigned int program) {
     glUniform1i(glGetUniformLocation(program, name), value);
 }
 
 // float
-void PROGRAM::Uniform::set(const char *name, float value, unsigned int program) {
+void PROGRAM::set(CString name, float value, unsigned int program) {
     glUniform1f(glGetUniformLocation(program, name), value);
 }
 
 // {float, float}
-void PROGRAM::Uniform::set(const char *name, const glm::vec2 &value, unsigned int program) {
+void PROGRAM::set(CString name, const glm::vec2 &value, unsigned int program) {
     glUniform2fv(glGetUniformLocation(program, name), 1, &value[0]);
 }
 
 // {float, float, float}
-void PROGRAM::Uniform::set(const char *name, const glm::vec3 &value, unsigned int program) {
+void PROGRAM::set(CString name, const glm::vec3 &value, unsigned int program) {
     glUniform3fv(glGetUniformLocation(program, name), 1, &value[0]);
 }
 
 // {float, float, float, float}
-void PROGRAM::Uniform::set(const char *name, const glm::vec4 &value, unsigned int program) {
+void PROGRAM::set(CString name, const glm::vec4 &value, unsigned int program) {
     glUniform4fv(glGetUniformLocation(program, name), 1, &value[0]);
 }
 
 // 2x2
-void PROGRAM::Uniform::set(const char *name, const glm::mat2 &mat, unsigned int program) {
+void PROGRAM::set(CString name, const glm::mat2 &mat, unsigned int program) {
     glUniformMatrix2fv(glGetUniformLocation(program, name), 1, GL_FALSE, &mat[0][0]);
 }
 
 // 3x3
-void PROGRAM::Uniform::set(const char *name, const glm::mat3 &mat, unsigned int program) {
+void PROGRAM::set(CString name, const glm::mat3 &mat, unsigned int program) {
     glUniformMatrix3fv(glGetUniformLocation(program, name), 1, GL_FALSE, &mat[0][0]);
 }
 
 // 4x4
-void PROGRAM::Uniform::set(const char *name, const glm::mat4 &mat, unsigned int program) {
+void PROGRAM::set(CString name, const glm::mat4 &mat, unsigned int program) {
     glUniformMatrix4fv(glGetUniformLocation(program, name), 1, GL_FALSE, &mat[0][0]);
 }
 
-static unsigned createShader(Shaders type, const char *filePath) {
+static unsigned createShader(Shaders type, CString filePath) {
     if (!filePath) return 0;
 
     // Create shader
@@ -85,7 +89,7 @@ static unsigned createShader(Shaders type, const char *filePath) {
     }
 
     //  Compile shader
-    const char *sourcePointer = shaderCode.c_str();
+    CString sourcePointer = shaderCode.c_str();
     glShaderSource(shaderID, 1, &sourcePointer, nullptr);
     glCompileShader(shaderID);
 
@@ -100,7 +104,7 @@ static unsigned createShader(Shaders type, const char *filePath) {
     return shaderID;
 }
 
-unsigned ASC::GRAPHICS::PROGRAM::create(const char *vertex, const char *fragment, const char *geometry) {
+unsigned PROGRAM::create(CString vertex, CString fragment, CString geometry) {
     infoLogLength = 0;
 
     const unsigned shaders[3] = {
@@ -141,4 +145,15 @@ unsigned ASC::GRAPHICS::PROGRAM::create(const char *vertex, const char *fragment
     }
 
     return programID;
+}
+
+unsigned PROGRAM::create(const String &name) {
+    const auto &paths = ASC::CONSTANTS::PATHS::program;
+    String vertex = fstr(paths.vertex, name);
+    String fragment = fstr(paths.fragment, name);
+    String geometry = fstr(paths.geometry, name);
+
+    return PROGRAM::create(vertex.c_str(),
+                           fragment.c_str(),
+                           std::ifstream(geometry) ? geometry.c_str() : nullptr);
 }

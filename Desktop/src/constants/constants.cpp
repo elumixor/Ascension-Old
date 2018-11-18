@@ -13,7 +13,7 @@ constexpr unsigned CONSTRAINTS::gradient_points_max{5};
 constexpr unsigned PARAMS::window_width{1024};
 constexpr unsigned PARAMS::window_height{768};
 constexpr unsigned PARAMS::vsync{1};
-const char *PARAMS::window_title{"Desktop"};
+constexpr CString const PARAMS::window_title{"Desktop"};
 constexpr unsigned PARAMS::gl_version_major{4};
 constexpr unsigned PARAMS::gl_version_minor{0};
 constexpr float PARAMS::persepctive_zoom{45.f};
@@ -22,33 +22,30 @@ constexpr float PARAMS::persepctive_zoom{45.f};
 constexpr unsigned DEFAULTS::gradient_point_factor{2};
 
 // paths to files
-const char *PATHS::PROGRAM::home[2]{
-        "../programs/home/vertex.glsl",
-        "../programs/home/fragment.glsl"
+constexpr PATHS::Program PATHS::program{
+        "../programs/%s/vertex.glsl",
+        "../programs/%s/fragment.glsl",
+        "../programs/%s/geometry.glsl"};
+
+constexpr CString const PATHS::MESHES::home[1]{
+        "../meshes/generated/home_dummy.ascobj"
 };
-const char *PATHS::PROGRAM::gradient_background[3]{
-        "../programs/gradient_background/vertex.glsl",
-        "../programs/gradient_background/fragment.glsl",
-        "../programs/gradient_background/geometry.glsl"
-};
-const char *const PATHS::MESHES::home[1]{
-        "../meshes/bin/home_dummy.ascobj"
-};
+constexpr CString const PATHS::MESHES::base{"../meshes/generated/%s.ascobj"};
 
 // resources
-const char *RESOURCES::PROGRAM::gradient_background{"grbg"};
-const char *RESOURCES::PROGRAM::home{"my shader name"};
+CString RESOURCES::PROGRAM::gradient_background{"grbg"};
+CString RESOURCES::PROGRAM::home{"my shader name"};
 
 // uniforms
-const char *UNIFORMS::GRB::points{"points"};
-const char *UNIFORMS::GRB::points_count{"points_count"};
-const char *UNIFORMS::GRB::point_color{"color"};
-const char *UNIFORMS::GRB::point_location{"location"};
-const char *UNIFORMS::GRB::point_radius{"radius"};
-const char *UNIFORMS::GRB::point_factor{"factor"};
-const char *UNIFORMS::MATRICES::projection{"projection"};
-const char *UNIFORMS::MATRICES::view{"view"};
-const char *UNIFORMS::MATRICES::model{"model"};
+CString UNIFORMS::GRB::points{"points"};
+CString UNIFORMS::GRB::points_count{"points_count"};
+CString UNIFORMS::GRB::point_color{"color"};
+CString UNIFORMS::GRB::point_location{"location"};
+CString UNIFORMS::GRB::point_radius{"radius"};
+CString UNIFORMS::GRB::point_factor{"factor"};
+CString UNIFORMS::MATRICES::projection{"projection"};
+CString UNIFORMS::MATRICES::view{"view"};
+CString UNIFORMS::MATRICES::model{"model"};
 
 // errors
 constexpr unsigned ERRORS::unknown{100};

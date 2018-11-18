@@ -35,28 +35,35 @@ add_definitions(
         -D_CRT_SECURE_NO_WARNINGS
 )
 
-add_subdirectory(src/graphics/ascml)
+#add_subdirectory(src/graphics/ascml)
 
 # Source files
 set(src src/main.cpp
-        src/constants/constants.cpp
-        src/constants/constants.h
-        src/graphics/graphics.h
+        src/code_organizers.h
+        src/util/util.cpp src/util/util.h
+
+        src/constants/constants.cpp src/constants/constants.h
+
+        src/graphics/graphics.h src/graphics/graphics.cpp
         src/graphics/gl.cpp
         src/graphics/program.cpp
-        src/graphics/graphics.cpp
+
         src/graphics/Mainframe/Mainframe.cpp src/graphics/Mainframe/Mainframe.h
-        src/graphics/elements/composite/GradientBackground/GradientBackground.cpp
-        src/graphics/elements/composite/GradientBackground/GradientBackground.h
-        src/graphics/elements/Mesh/Mesh.cpp
-        src/graphics/elements/Mesh/Mesh.h
-        src/graphics/elements/composite/GradientBackground/Point.cpp src/graphics/loaders/loaders.h)
+
+        src/graphics/scenes/Base.h
+        src/graphics/scenes/Home/Home.cpp src/graphics/scenes/Home/Home.h
+
+        src/graphics/resources/elements.h src/graphics/resources/elements.cpp
+        src/graphics/resources/objects/Base.h src/graphics/resources/objects/Base.h
+        src/graphics/resources/objects/Point/Point.h src/graphics/resources/objects/Point/Point.cpp
+        src/graphics/resources/objects/GradientBackgorund/GradientBackground.cpp src/graphics/resources/objects/GradientBackgorund/GradientBackground.h
+        src/graphics/resources/VAO/VAO.cpp src/graphics/resources/VAO/VAO.h)
 
 if ("${CMAKE_CURRENT_LIST_DIR}/meshes" IS_NEWER_THAN "${CMAKE_CURRENT_LIST_DIR}/meshes/generated")
     file(REMOVE_RECURSE "${CMAKE_CURRENT_LIST_DIR}/meshes/generated")
     file(MAKE_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/meshes/generated")
     execute_process(COMMAND python "${CMAKE_CURRENT_LIST_DIR}/meshes/transform.py")
-endif()
+endif ()
 
 # exe
 add_executable(${PROJECT_NAME} ${src})

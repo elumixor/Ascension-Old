@@ -1,4 +1,0 @@
-Point {
-    m4 myMatrix { 1.f }
-    TestObject myObject {}
-}

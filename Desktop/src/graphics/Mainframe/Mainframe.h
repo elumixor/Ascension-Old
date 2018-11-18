@@ -7,7 +7,7 @@
 
 #include <cstdio>
 #include <graphics/graphics.h>
-#include <graphics/ascml/scenes/Base/Base.h>
+#include <graphics/scenes/Base.h>
 
 namespace ASC {
     namespace GRAPHICS {

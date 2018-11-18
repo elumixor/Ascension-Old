@@ -23,8 +23,8 @@ void Globals::update() {
     globals.elapsed = currentFrame;
 }
 
-void Matrices::set(unsigned program) {
-    PROGRAM::Uniform::set(UNIFORMS::MATRICES::projection, projection, program);
-    PROGRAM::Uniform::set(UNIFORMS::MATRICES::view, view, program);
-    PROGRAM::Uniform::set(UNIFORMS::MATRICES::model, model, program);
+void Matrices::set(unsigned prog) {
+//    set(UNIFORMS::MATRICES::projection, projection);
+//    set(UNIFORMS::MATRICES::view, view);
+//    set(UNIFORMS::MATRICES::model, model);
 }

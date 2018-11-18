@@ -67,7 +67,6 @@ for input_file in glob.glob("*.obj"):
     f.write(s)
 
     for v in vertices:
-        # locations
         s = struct.pack("fff", float(v.location.x), float(v.location.y), float(v.location.z))
         f.write(s)
 
