@@ -9,5 +9,5 @@ in VS_OUT {
 } vs_in;
 
 void main() {
-    FragColor = vec4(1.f);
+    FragColor = vec4(1.f - vs_in.location.z, 0.f, 0.f, 1.f);
 }

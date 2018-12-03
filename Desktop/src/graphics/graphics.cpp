@@ -9,9 +9,9 @@ using namespace ASC::GRAPHICS;
 using namespace ASC::CONSTANTS;
 
 Globals ASC::GRAPHICS::globals{{0.0, 0.0},
-                               {0.0, 0.0}};
-
-Matrices ASC::GRAPHICS::matrices{};
+                               {0.0, 0.0},
+                               {},
+                               {0,   0}};
 
 std::map<std::string, unsigned> ASC::GRAPHICS::resources{};
 
@@ -23,8 +23,7 @@ void Globals::update() {
     globals.elapsed = currentFrame;
 }
 
-void Matrices::set(unsigned prog) {
-//    set(UNIFORMS::MATRICES::projection, projection);
-//    set(UNIFORMS::MATRICES::view, view);
-//    set(UNIFORMS::MATRICES::model, model);
+void Globals::Matrices::set() {
+    UNI_SET(projection);
+    UNI_SET(view);
 }

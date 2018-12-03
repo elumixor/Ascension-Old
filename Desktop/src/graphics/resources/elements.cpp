@@ -8,7 +8,8 @@ ASC::GRAPHICS::RESOURCES::Container::~Container() {
     for (auto el : objects)
         delete (el.second);
     for (auto el: vaos) {
-        el.second->free();
+        if (el.second)
+            el.second->free();
         delete el.second;
     }
 }

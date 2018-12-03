@@ -12,7 +12,14 @@
 #include <graphics/resources/objects/Base.h>
 #include "code_organizers.h"
 
+#define _set_func_impl(fname, type) void fname(CString name, type value, unsigned int program)
+#define _set_func(fname, type) void fname(CString name, type value, unsigned int program = active)
+#define __set_func_impl(type) _set_func_impl(PROGRAM::set, type)
+#define __set_func(type) _set_func(set, type)
+
 NAMESPACE(ASC, GRAPHICS)
+        class Mainframe;
+
         extern std::map<std::string, unsigned> resources;
 
         namespace GL {
@@ -25,32 +32,23 @@ NAMESPACE(ASC, GRAPHICS)
         namespace PROGRAM {
             extern unsigned active;
 
-            // bool
-            void set_bool(CString name, bool value, unsigned int program = active);
+            _set_func(set_bool, bool);
 
-            // int
-            void set_int(CString name, int value, unsigned int program = active);
+            _set_func(set_int, int);
 
-            // float
-            void set(CString name, float value, unsigned int program = active);
+            __set_func(float);
 
-            // {float, float}
-            void set(CString name, const glm::vec2 &value, unsigned int program = active);
+            __set_func(const glm::vec2 &);
 
-            // {float, float, float}
-            void set(CString name, const glm::vec3 &value, unsigned int program = active);
+            __set_func(const glm::vec3 &);
 
-            // {float, float, float, float}
-            void set(CString name, const glm::vec4 &value, unsigned int program = active);
+            __set_func(const glm::vec4 &);
 
-            // 2x2
-            void set(CString name, const glm::mat2 &mat, unsigned int program = active);
+            __set_func(const glm::mat2 &);
 
-            // 3x3
-            void set(CString name, const glm::mat3 &mat, unsigned int program = active);
+            __set_func(const glm::mat3 &);
 
-            // 4x4
-            void set(CString name, const glm::mat4 &mat, unsigned int program = active);
+            __set_func(const glm::mat4 &);
 
             // set array
             template<typename T>
@@ -69,27 +67,30 @@ NAMESPACE(ASC, GRAPHICS)
 
         extern struct Globals {
             struct {
-                double x, y;
+                double x, y; // double for compatibility with OpenGL
             } cursor;
 
             struct {
-                // time since loop start
-                double elapsed;
-
-                // time between current nad previous frame
-                double delta;
+                double elapsed, delta; // // double for compatibility with OpenGL
             };
+
+            struct Matrices {
+                glm::mat4 view;
+                glm::mat4 projection;
+
+                void set();
+            } matrices;
+
+            struct {
+                unsigned width;
+                unsigned height;
+            } screen;
+
+            Mainframe *mainframe;
 
             static void update();
         } globals;
 
-        extern struct Matrices {
-            glm::mat4 model;
-            glm::mat4 view;
-            glm::mat4 projection;
-
-            void set(unsigned prog = PROGRAM::active);
-        } matrices;
 N2
 
 #endif //ASCENSION_GRAPHICS_H

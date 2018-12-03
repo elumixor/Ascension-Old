@@ -10,6 +10,15 @@
 #include "string"
 
 
+//region Global typedefs
+typedef bool (*Predicate)();
+
+typedef void (*Function)();
+//endregion
+
+
+//region Formatted string
+
 class FString {
     std::vector<String> strings;
 
@@ -33,18 +42,23 @@ public:
     void display() const;
 };
 
-static const char * __get_message(const char * msg) {
-    return msg;
-}
-static const char * __get_message(const String& msg) {
-    return msg.c_str();
-}
-
 String fstr(CString str, const String &replace);
 
-//region _s string literal
-
 FString operator ""_fs(const char *literal, size_t length);
+//endregion
+
+//region Adaptable message
+
+static const char *__get_message(const char *msg) {
+    return msg;
+}
+
+static const char *__get_message(const String &msg) {
+    return msg.c_str();
+}
+//endregion
+
+//region _s string literal
 
 String operator ""_s(const char *literal, size_t length);
 

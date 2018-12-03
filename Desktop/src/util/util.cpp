@@ -36,7 +36,6 @@ String FString::operator%=(const String &replace) {
 
 FString::FString(const FString &other) {
     static unsigned count{0};
-    printf("Copy: %u\n", ++count);
 }
 
 String FString::str() const {
@@ -52,7 +51,8 @@ FString::operator CString() const {
 }
 
 CString FString::c_str() const {
-    return str().c_str();
+    auto s = str();
+    return s.c_str();
 }
 
 void FString::display() const {

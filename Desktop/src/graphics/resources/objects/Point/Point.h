@@ -17,7 +17,7 @@ NAMESPACE(ASC, GRAPHICS, RESOURCES)
                 Point(glm::vec4 color, glm::vec2 location, float radius, int factor) : color{color}, location{location},
                                                                                        radius{radius}, factor{factor} {}
 
-                void render(const String &base_name = "") const;
+                void render(const String &base_name = "") const override;
             };
 
 N3

@@ -15,12 +15,12 @@
 
 NAMESPACE(ASC, GRAPHICS, RESOURCES)
             class GradientBackground : public Base {
-                VAO* vao = GET_VAO("home_dummy");
+                VAO* vao = SINGLE_DRAW_CALL;
             public:
                 unsigned points_count{0};
                 Point points[GRADIENT_POINTS_MAX];
 
-                void render(const String &base_name = "") const;
+                void render(const String &base_name = "") const override;
             };
 N3
 

@@ -7,26 +7,18 @@
 
 #include <cstdio>
 #include <graphics/graphics.h>
-#include <graphics/scenes/Base.h>
+#include <graphics/scenes/SceneBase.h>
 
 namespace ASC {
     namespace GRAPHICS {
 
-        /**
-         *
-         */
         class Mainframe {
         private:
-            Mainframe();
-
             void process_keys();
 
-        public:
-            static Mainframe *instance();
+            Mainframe();
 
-            Mainframe(const Mainframe &) = delete;
-
-            void operator=(const Mainframe &) = delete;
+        SINGLETON(Mainframe)
 
             // start main loop
             void start();
@@ -38,10 +30,10 @@ namespace ASC {
             ~Mainframe();
 
             // pointer to an active scene
-            ASC::GRAPHICS::SCENES::Base *scene{nullptr};
+            ASC::GRAPHICS::SCENES::SceneBase *scene{nullptr};
 
             // pointer to overlay scene
-            ASC::GRAPHICS::SCENES::Base *overlay{nullptr};
+            ASC::GRAPHICS::SCENES::SceneBase *overlay{nullptr};
         };
 
     }

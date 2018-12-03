@@ -24,49 +24,48 @@ enum Shaders {
     fragment = GL_FRAGMENT_SHADER
 };
 
-// bool
-void PROGRAM::set_bool(CString name, bool value, unsigned int program) {
+
+_set_func_impl(PROGRAM::set_bool, bool) {
     glUniform1i(glGetUniformLocation(program, name), (int) value);
 }
 
-// int
-void PROGRAM::set_int(CString name, int value, unsigned int program) {
+_set_func_impl(PROGRAM::set_int, int) {
     glUniform1i(glGetUniformLocation(program, name), value);
 }
 
 // float
-void PROGRAM::set(CString name, float value, unsigned int program) {
+__set_func_impl(float) {
     glUniform1f(glGetUniformLocation(program, name), value);
 }
 
 // {float, float}
-void PROGRAM::set(CString name, const glm::vec2 &value, unsigned int program) {
+__set_func_impl(const glm::vec2 &) {
     glUniform2fv(glGetUniformLocation(program, name), 1, &value[0]);
 }
 
 // {float, float, float}
-void PROGRAM::set(CString name, const glm::vec3 &value, unsigned int program) {
+__set_func_impl(const glm::vec3 &) {
     glUniform3fv(glGetUniformLocation(program, name), 1, &value[0]);
 }
 
 // {float, float, float, float}
-void PROGRAM::set(CString name, const glm::vec4 &value, unsigned int program) {
+__set_func_impl(const glm::vec4 &) {
     glUniform4fv(glGetUniformLocation(program, name), 1, &value[0]);
 }
 
 // 2x2
-void PROGRAM::set(CString name, const glm::mat2 &mat, unsigned int program) {
-    glUniformMatrix2fv(glGetUniformLocation(program, name), 1, GL_FALSE, &mat[0][0]);
+__set_func_impl(const glm::mat2 &) {
+    glUniformMatrix2fv(glGetUniformLocation(program, name), 1, GL_FALSE, &value[0][0]);
 }
 
 // 3x3
-void PROGRAM::set(CString name, const glm::mat3 &mat, unsigned int program) {
-    glUniformMatrix3fv(glGetUniformLocation(program, name), 1, GL_FALSE, &mat[0][0]);
+__set_func_impl(const glm::mat3 &) {
+    glUniformMatrix3fv(glGetUniformLocation(program, name), 1, GL_FALSE, &value[0][0]);
 }
 
 // 4x4
-void PROGRAM::set(CString name, const glm::mat4 &mat, unsigned int program) {
-    glUniformMatrix4fv(glGetUniformLocation(program, name), 1, GL_FALSE, &mat[0][0]);
+__set_func_impl(const glm::mat4 &) {
+    glUniformMatrix4fv(glGetUniformLocation(program, name), 1, GL_FALSE, &value[0][0]);
 }
 
 static unsigned createShader(Shaders type, CString filePath) {
@@ -98,7 +97,7 @@ static unsigned createShader(Shaders type, CString filePath) {
     if (infoLogLength > 0) {
         std::vector<char> shaderErrorMessage((unsigned) infoLogLength + 1);
         glGetShaderInfoLog(shaderID, infoLogLength, nullptr, &shaderErrorMessage[0]);
-        printf("%s\n", &shaderErrorMessage[0]);
+        LOG("Error compiling shader: %s"_fs % &shaderErrorMessage[0]);
     }
 
     return shaderID;
@@ -113,18 +112,14 @@ unsigned PROGRAM::create(CString vertex, CString fragment, CString geometry) {
             createShader(Shaders::fragment, fragment)
     };
 
-    if (!(shaders[0] | shaders[1] | shaders[2])) {
-        printf("Couldn't create program\n");
-        return 0;
-    }
+    require((shaders[0] | shaders[1] | shaders[2]), "Couldn't create program");
 
     // Link program
     unsigned programID = glCreateProgram();
 
-    for (unsigned shader: shaders) {
+    for (unsigned shader: shaders)
         if (shader != 0)
             glAttachShader(programID, shader);
-    }
 
     glLinkProgram(programID);
 
@@ -133,16 +128,15 @@ unsigned PROGRAM::create(CString vertex, CString fragment, CString geometry) {
     if (infoLogLength > 0) {
         std::vector<char> ProgramErrorMessage((unsigned) infoLogLength + 1);
         glGetProgramInfoLog(programID, infoLogLength, nullptr, &ProgramErrorMessage[0]);
-        printf("%s\n", &ProgramErrorMessage[0]);
+        LOG("Error linking program: %s"_fs % &ProgramErrorMessage[0]);
     }
 
     // Cleanup
-    for (unsigned shader: shaders) {
+    for (unsigned shader: shaders)
         if (shader != 0) {
             glDetachShader(programID, shader);
             glDeleteShader(shader);
         }
-    }
 
     return programID;
 }

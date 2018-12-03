@@ -24,8 +24,8 @@ ASC::GRAPHICS::RESOURCES::VAO::VAO(const char *name, std::initializer_list<unsig
     glBindVertexArray(vao);
 
     // Open .ascobj file
-    CString file_path = (FString(ASC::CONSTANTS::PATHS::MESHES::base) %= name).c_str();
-    FILE *fp{fopen(file_path, "rb")};
+    String file_path = (FString(ASC::CONSTANTS::PATHS::MESHES::base) % name).c_str();
+    FILE *fp{fopen(file_path.c_str(), "rb")};
     require(fp, "Could not open mesh file: '%s'"_fs % file_path);
 
     // Get .ascobj layout
@@ -53,7 +53,7 @@ ASC::GRAPHICS::RESOURCES::VAO::VAO(const char *name, std::initializer_list<unsig
         ptr += offset;
         offset += component_parts * sizeof(float) * vertex_count;
 
-        fread(ptr, offset, 1, fp);
+        fread(ptr, component_parts * vertex_count * sizeof(float), 1, fp);
     }
 
     // Read indices
@@ -72,11 +72,9 @@ ASC::GRAPHICS::RESOURCES::VAO::VAO(const char *name, std::initializer_list<unsig
 void ASC::GRAPHICS::RESOURCES::VAO::render() const {
     glBindVertexArray(vao);
 
-    if (has_components)
-        // Regular draw
+    if (has_components) // Regular draw
         glDrawElements(draw_mode, indices_count, GL_UNSIGNED_INT, nullptr);
-    else
-        // Simple draw call
+    else // Dummy draw call
         glDrawArrays(GL_POINTS, 0, 1);
 }
 

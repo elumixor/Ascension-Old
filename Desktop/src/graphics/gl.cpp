@@ -10,6 +10,7 @@
 #include <constants/constants.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "graphics.h"
+#include "util/util.h"
 
 using namespace ASC::GRAPHICS;
 using namespace ASC::CONSTANTS;
@@ -32,18 +33,16 @@ static void APIENTRY openglCallbackFunction(GLenum, GLenum, GLuint, GLenum sever
 
 static void resizeCallback(GLFWwindow *, int width, int height) {
     glViewport(0, 0, width, height);
+    globals.screen = {(unsigned) width, (unsigned) height};
 
-    matrices.projection = glm::perspective(glm::radians(PARAMS::persepctive_zoom),
-                                           (float) width / (float) height, 0.1f, 100.0f);
+    globals.matrices.projection = glm::perspective(glm::radians(PARAMS::persepctive_zoom),
+                                                   (float) width / (float) height, 0.1f, 100.0f);
 }
 
 void GL::init(unsigned width, unsigned height, CString title, unsigned int vsync) {
     glewExperimental = GL_TRUE;
 
-    if (!glfwInit()) {
-        printf("Failed to initialize GLFW\n");
-        exit(-1);
-    }
+    require(glfwInit(), "Failed to initialize GLFW");
 
     glfwWindowHint(GLFW_SAMPLES, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, PARAMS::gl_version_major);
@@ -52,32 +51,16 @@ void GL::init(unsigned width, unsigned height, CString title, unsigned int vsync
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     window = glfwCreateWindow(width, height, title, nullptr, nullptr);
-    if (!window) {
-        printf("Failed to open GLFW window\n");
-        glfwTerminate();
-        exit(-1);
-    }
+    require (window, "Failed to open GLFW window");
+
     glfwMakeContextCurrent(window);
 
-    if (glewInit() != GLEW_OK) {
-        printf("Failed to initialize GLEW\n");
-        glfwTerminate();
-        exit(-1);
-    }
+    require(glewInit() == GLEW_OK, "Failed to initialize GLEW");
 
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
-#ifdef ASCENSION_DEBUG
-#ifdef ASCENSION_WINDOWS
-    printf("Debug output enabled\n");
-    glEnable(GL_DEBUG_OUTPUT);
-    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-    printf("%x", &openglCallbackFunction);
-    printf("%x", openglCallbackFunction);
-    glDebugMessageCallback(openglCallbackFunction, nullptr);
-#endif
-#endif
-
     glfwSetFramebufferSizeCallback(window, resizeCallback);
     glfwSwapInterval(vsync);
+
+    globals.screen = {width, height};
 }

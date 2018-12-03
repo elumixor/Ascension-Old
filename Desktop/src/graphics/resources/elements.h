@@ -16,6 +16,8 @@
 #define GET_PROGRAM(name) ASC::GRAPHICS::RESOURCES::Container::get_program(name)
 #define GET_VAO ASC::GRAPHICS::RESOURCES::Container::get_vao
 
+#define SINGLE_DRAW_CALL GET_VAO("__SDC__")
+
 NAMESPACE(ASC, GRAPHICS, RESOURCES)
             class Container {
                 std::unordered_map<String, Base *> objects;

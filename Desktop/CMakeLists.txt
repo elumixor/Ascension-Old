@@ -50,14 +50,20 @@ set(src src/main.cpp
 
         src/graphics/Mainframe/Mainframe.cpp src/graphics/Mainframe/Mainframe.h
 
-        src/graphics/scenes/Base.h
+        src/graphics/scenes/SceneBase.h
         src/graphics/scenes/Home/Home.cpp src/graphics/scenes/Home/Home.h
 
         src/graphics/resources/elements.h src/graphics/resources/elements.cpp
         src/graphics/resources/objects/Base.h src/graphics/resources/objects/Base.h
         src/graphics/resources/objects/Point/Point.h src/graphics/resources/objects/Point/Point.cpp
         src/graphics/resources/objects/GradientBackgorund/GradientBackground.cpp src/graphics/resources/objects/GradientBackgorund/GradientBackground.h
-        src/graphics/resources/VAO/VAO.cpp src/graphics/resources/VAO/VAO.h)
+        src/graphics/resources/VAO/VAO.cpp src/graphics/resources/VAO/VAO.h
+        src/graphics/resources/objects/Figure/Figure.cpp src/graphics/resources/objects/Figure/Figure.h
+        src/graphics/scenes/overlays/Modules.cpp src/graphics/scenes/overlays/Modules.h
+        src/graphics/scenes/keys/keys.h src/graphics/scenes/keys/keys.cpp
+        src/graphics/scenes/transitions/HomeOverlay_tr.cpp src/graphics/scenes/transitions/HomeOverlay_tr.h
+        src/util/Singleton.h
+        src/graphics/Framebuffer/Framebuffer.cpp src/graphics/Framebuffer/Framebuffer.h)
 
 if ("${CMAKE_CURRENT_LIST_DIR}/meshes" IS_NEWER_THAN "${CMAKE_CURRENT_LIST_DIR}/meshes/generated")
     file(REMOVE_RECURSE "${CMAKE_CURRENT_LIST_DIR}/meshes/generated")
