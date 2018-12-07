@@ -3,6 +3,7 @@
 //
 
 #include "VAO.h"
+#include "util/FString.h"
 
 ASC::GRAPHICS::RESOURCES::VAO::VAO(const char *name, std::initializer_list<unsigned int> components, GLenum draw_mode)
         : draw_mode{draw_mode} {

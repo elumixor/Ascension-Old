@@ -10,7 +10,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <graphics/resources/elements.h>
 #include <graphics/Framebuffer/Framebuffer.h>
-#include "util/util.h"
+#include <graphics/animation/animation.h>
 
 using namespace ASC::GRAPHICS;
 using namespace ASC::CONSTANTS;
@@ -48,10 +48,13 @@ Mainframe::Mainframe() {
                                                    100.0f);
     globals.matrices.view = glm::lookAt(glm::vec3{0.f, 0.f, 5.f}, {0.f, 0.f, 0.f}, {0.f, 1.f, 0.f});
     globals.mainframe = this;
+
+
 }
 
 Mainframe::~Mainframe() {
     glfwTerminate();
+    free_animations();
 }
 
 void Mainframe::start() {
@@ -70,6 +73,9 @@ void Mainframe::start() {
 
         if (scene) scene->render();
         if (overlay) overlay->render();
+
+        for (Animation *animation = animations; animation != nullptr; animation = animation->next())
+            animation->step();
 
         glfwSwapBuffers(GL::window);
         glfwPollEvents();

@@ -10,7 +10,6 @@
 #include <constants/constants.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "graphics.h"
-#include "util/util.h"
 
 using namespace ASC::GRAPHICS;
 using namespace ASC::CONSTANTS;

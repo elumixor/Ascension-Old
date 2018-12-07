@@ -40,9 +40,11 @@
 #define LOG(message)
 #define ERROR(message)
 #else
-#define LOG(message) printf("LOG: %s\n", __get_message(message))
-#define ERROR(message) fprintf(stderr, "ERROR: %s\n", __get_message(message));
+#define LOG(message) printf("LOG: %s\n", String(message).c_str())
+#define ERROR(message) fprintf(stderr, "ERROR: %s\n", String(message).c_str());
 #endif
+
+
 
 #define i_range(start, count) for (unsigned i = start; i < count; ++i)
 

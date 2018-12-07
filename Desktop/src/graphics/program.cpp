@@ -9,8 +9,8 @@
 #include <fstream>
 #include <vector>
 #include <constants/constants.h>
-#include <util/util.h>
 #include "graphics.h"
+#include "util/FString.h"
 
 using namespace ASC::GRAPHICS;
 
@@ -143,9 +143,9 @@ unsigned PROGRAM::create(CString vertex, CString fragment, CString geometry) {
 
 unsigned PROGRAM::create(const String &name) {
     const auto &paths = ASC::CONSTANTS::PATHS::program;
-    String vertex = fstr(paths.vertex, name);
-    String fragment = fstr(paths.fragment, name);
-    String geometry = fstr(paths.geometry, name);
+    String vertex = format_str(paths.vertex, name);
+    String fragment = format_str(paths.fragment, name);
+    String geometry = format_str(paths.geometry, name);
 
     return PROGRAM::create(vertex.c_str(),
                            fragment.c_str(),

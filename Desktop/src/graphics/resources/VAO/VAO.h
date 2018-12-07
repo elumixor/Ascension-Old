@@ -9,7 +9,6 @@
 #import "code_organizers.h"
 #import "string"
 #import "vector"
-#import <util/util.h>
 #include <constants/constants.h>
 
 NAMESPACE(ASC, GRAPHICS, RESOURCES)

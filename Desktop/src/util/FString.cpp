@@ -1,8 +1,8 @@
 //
-// Created by Vladyslav Yazykov on 16/11/2018.
+// Created by Vladyslav Yazykov on 07/12/2018.
 //
 
-#include "util.h"
+#include "FString.h"
 
 FString::FString(const String &str) {
     size_t previous;
@@ -61,12 +61,8 @@ void FString::display() const {
 }
 
 
-String fstr(CString str, const String &replace) {
+String format_str(CString str, const String &replace) {
     return (FString(str) % replace).str();
-}
-
-String operator ""_s(const char *literal, size_t length) {
-    return String(literal);
 }
 
 FString operator ""_fs(const char *literal, size_t length) {

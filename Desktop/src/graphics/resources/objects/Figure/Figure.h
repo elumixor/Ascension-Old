@@ -15,7 +15,8 @@ NAMESPACE(ASC, GRAPHICS, RESOURCES)
             class Figure : public Base {
                 VAO *vao = GET_VAO("home_dummy", {3, 2, 3});
             public:
-                glm::mat4 model{glm::scale(glm::mat4(1.f), {.5f, .5f, .5f})};
+                mutable glm::mat4 model{glm::scale(glm::mat4(1.f), {.5f, .5f, .5f})};
+                glm::vec3 position{0.f};
 
                 void render(const std::string &base_name = "") const override;
             };

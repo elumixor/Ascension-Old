@@ -5,7 +5,6 @@
 #ifndef ASCENSION_KEYS_H
 #define ASCENSION_KEYS_H
 
-#include <util/util.h>
 #include "code_organizers.h"
 #include "graphics/graphics.h"
 
@@ -24,7 +23,7 @@
 #define __on_press1(k1) KEYS::check_keys<GLFW_KEY_##k1>
 #define __keys_pressed(...) _variadic_4(__VA_ARGS__, __on_press4, __on_press3, __on_press2, __on_press1)(__VA_ARGS__)
 #define __reaction(type, ...)\
-    static constexpr Predicate __reaction_name(type, __VA_ARGS__) {__keys_pressed(__VA_ARGS__)};\
+    static constexpr KEYS::Predicate __reaction_name(type, __VA_ARGS__) {__keys_pressed(__VA_ARGS__)};\
     if ( KEYS:: type (__reaction_name(type, __VA_ARGS__)))\
 
 //endregion
@@ -34,6 +33,9 @@
 #define RELEASE(...) __reaction(release, __VA_ARGS__)
 
 NAMESPACE(ASC, GRAPHICS, KEYS)
+            typedef bool (*Predicate)();
+            typedef bool (*Function)();
+
             const Predicate condition{nullptr};
             const Function callback{nullptr};
 

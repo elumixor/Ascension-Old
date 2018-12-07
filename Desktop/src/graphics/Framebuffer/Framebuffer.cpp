@@ -49,8 +49,6 @@ void ASC::GRAPHICS::Framebuffer::write() const {
 void ASC::GRAPHICS::Framebuffer::render() const {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glDisable(GL_DEPTH_TEST);
-//    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-//    glClear(GL_COLOR_BUFFER_BIT);
 
     static const unsigned FBO = GET_PROGRAM("framebuffer");
     static const auto vao = SINGLE_DRAW_CALL;
