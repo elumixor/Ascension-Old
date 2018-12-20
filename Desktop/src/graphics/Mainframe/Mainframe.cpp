@@ -43,6 +43,8 @@ Mainframe::Mainframe() {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    glfwSetInputMode(GL::window,GLFW_STICKY_KEYS, GL_FALSE);
+
     globals.matrices.projection = glm::perspective(glm::radians(PARAMS::persepctive_zoom),
                                                    (float) PARAMS::window_width / (float) PARAMS::window_height, 0.1f,
                                                    100.0f);
@@ -54,7 +56,6 @@ Mainframe::Mainframe() {
 
 Mainframe::~Mainframe() {
     glfwTerminate();
-    free_animations();
 }
 
 void Mainframe::start() {
@@ -74,8 +75,7 @@ void Mainframe::start() {
         if (scene) scene->render();
         if (overlay) overlay->render();
 
-        for (Animation *animation = animations; animation != nullptr; animation = animation->next())
-            animation->step();
+        animations.step();
 
         glfwSwapBuffers(GL::window);
         glfwPollEvents();

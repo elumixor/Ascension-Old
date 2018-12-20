@@ -23,8 +23,8 @@
 #define __on_press1(k1) KEYS::check_keys<GLFW_KEY_##k1>
 #define __keys_pressed(...) _variadic_4(__VA_ARGS__, __on_press4, __on_press3, __on_press2, __on_press1)(__VA_ARGS__)
 #define __reaction(type, ...)\
-    static constexpr KEYS::Predicate __reaction_name(type, __VA_ARGS__) {__keys_pressed(__VA_ARGS__)};\
-    if ( KEYS:: type (__reaction_name(type, __VA_ARGS__)))\
+    static constexpr KEYS::Key __reaction_name(type, __VA_ARGS__) {__keys_pressed(__VA_ARGS__)};\
+    if (  (__reaction_name(type, __VA_ARGS__)). type () )\
 
 //endregion
 
@@ -33,17 +33,21 @@
 #define RELEASE(...) __reaction(release, __VA_ARGS__)
 
 NAMESPACE(ASC, GRAPHICS, KEYS)
-            typedef bool (*Predicate)();
-            typedef bool (*Function)();
+            class Key {
+                mutable bool pressed{false};
 
-            const Predicate condition{nullptr};
-            const Function callback{nullptr};
+                typedef bool (*Predicate)();
 
-            bool release(Predicate condition);
-            bool press(Predicate condition);
-            constexpr bool hold(Predicate condition) {
-                return condition();
-            }
+                const Predicate condition;
+
+                inline constexpr bool hold(Predicate condition) const { return condition(); }
+
+            public:
+                constexpr explicit Key(Predicate condition): condition{condition} {}
+
+                bool release() const;
+                bool press() const;
+            };
 
             template<class none = void>
             constexpr bool check_keys() {
@@ -52,7 +56,7 @@ NAMESPACE(ASC, GRAPHICS, KEYS)
 
             template<int key, int... keys>
             constexpr bool check_keys() {
-                return glfwGetKey(ASC::GRAPHICS::GL::window, key) == GLFW_PRESS && check_keys<keys...>();
+                return (glfwGetKey(ASC::GRAPHICS::GL::window, key) == GLFW_PRESS) && check_keys<keys...>();
             }
 N3
 

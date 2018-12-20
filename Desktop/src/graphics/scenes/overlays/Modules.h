@@ -11,11 +11,12 @@
 
 NAMESPACE(ASC, GRAPHICS, SCENES)
             class Modules : public SceneBase {
-                const ASC::GRAPHICS::Framebuffer fbo{};
-                float opacity {0.5f};
+                const ASC::GRAPHICS::Framebuffer fbo{0.f};
 
             SCENE_BASE(Modules)
 
+                void fade_in();
+                void fade_out();
             };
 N3
 

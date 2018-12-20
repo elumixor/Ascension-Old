@@ -48,4 +48,5 @@ NAMESPACE(ASC, GRAPHICS, RESOURCES)
                 ~Container();
             };
 N3
-#endif //ASCENSION_ELEMENTS_H
+#endif //ASCENSION_ELEMENTS_Hслишком высокого мнения обо мне, вот
+

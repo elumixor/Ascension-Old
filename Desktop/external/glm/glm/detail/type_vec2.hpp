@@ -109,36 +109,36 @@ namespace glm
 		// -- Implicit basic constructors --
 
 		GLM_FUNC_DECL tvec2() GLM_DEFAULT_CTOR;
-		GLM_FUNC_DECL tvec2(tvec2<T, P> const & v) GLM_DEFAULT;
+		constexpr GLM_FUNC_DECL tvec2(tvec2<T, P> const & v) GLM_DEFAULT;
 		template <precision Q>
-		GLM_FUNC_DECL tvec2(tvec2<T, Q> const & v);
+		constexpr GLM_FUNC_DECL tvec2(tvec2<T, Q> const & v);
 
 		// -- Explicit basic constructors --
 
-		GLM_FUNC_DECL explicit tvec2(ctor);
-		GLM_FUNC_DECL explicit tvec2(T const & scalar);
-		GLM_FUNC_DECL tvec2(T const & s1, T const & s2);
+		constexpr GLM_FUNC_DECL explicit tvec2(ctor);
+		constexpr GLM_FUNC_DECL explicit tvec2(T const & scalar);
+		constexpr GLM_FUNC_DECL tvec2(T const & s1, T const & s2);
 
 		// -- Conversion constructors --
 
 		/// Explicit converions (From section 5.4.1 Conversion and scalar constructors of GLSL 1.30.08 specification)
 		template <typename A, typename B>
-		GLM_FUNC_DECL tvec2(A const & x, B const & y);
+		constexpr GLM_FUNC_DECL tvec2(A const & x, B const & y);
 		template <typename A, typename B>
-		GLM_FUNC_DECL tvec2(tvec1<A, P> const & v1, tvec1<B, P> const & v2);
+		constexpr GLM_FUNC_DECL tvec2(tvec1<A, P> const & v1, tvec1<B, P> const & v2);
 
 		// -- Conversion vector constructors --
 
 		/// Explicit conversions (From section 5.4.1 Conversion and scalar constructors of GLSL 1.30.08 specification)
 		template <typename U, precision Q>
-		GLM_FUNC_DECL explicit tvec2(tvec3<U, Q> const & v);
+		constexpr GLM_FUNC_DECL explicit tvec2(tvec3<U, Q> const & v);
 		/// Explicit conversions (From section 5.4.1 Conversion and scalar constructors of GLSL 1.30.08 specification)
 		template <typename U, precision Q>
-		GLM_FUNC_DECL explicit tvec2(tvec4<U, Q> const & v);
+		constexpr GLM_FUNC_DECL explicit tvec2(tvec4<U, Q> const & v);
 
 		/// Explicit conversions (From section 5.4.1 Conversion and scalar constructors of GLSL 1.30.08 specification)
 		template <typename U, precision Q>
-		GLM_FUNC_DECL GLM_EXPLICIT tvec2(tvec2<U, Q> const & v);
+		constexpr GLM_FUNC_DECL GLM_EXPLICIT tvec2(tvec2<U, Q> const & v);
 
 		// -- Swizzle constructors --
 

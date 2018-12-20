@@ -48,23 +48,23 @@ namespace glm
 
 	template <typename T, precision P>
 	template <precision Q>
-	GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(tvec2<T, Q> const & v)
+	constexpr GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(tvec2<T, Q> const & v)
 		: x(v.x), y(v.y)
 	{}
 
 	// -- Explicit basic constructors --
 
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(ctor)
+	constexpr GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(ctor)
 	{}
 
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(T const & scalar)
+	constexpr GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(T const & scalar)
 		: x(scalar), y(scalar)
 	{}
 
 	template <typename T, precision P>
-	GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(T const & s1, T const & s2)
+	constexpr GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(T const & s1, T const & s2)
 		: x(s1), y(s2)
 	{}
 
@@ -72,14 +72,14 @@ namespace glm
 
 	template <typename T, precision P>
 	template <typename A, typename B>
-	GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(A const & a, B const & b)
+	constexpr GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(A const & a, B const & b)
 		: x(static_cast<T>(a))
 		, y(static_cast<T>(b))
 	{}
 
 	template <typename T, precision P>
 	template <typename A, typename B>
-	GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(tvec1<A, P> const & a, tvec1<B, P> const & b)
+	constexpr GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(tvec1<A, P> const & a, tvec1<B, P> const & b)
 		: x(static_cast<T>(a.x))
 		, y(static_cast<T>(b.x))
 	{}
@@ -88,21 +88,21 @@ namespace glm
 
 	template <typename T, precision P>
 	template <typename U, precision Q>
-	GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(tvec2<U, Q> const & v)
+	constexpr GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(tvec2<U, Q> const & v)
 		: x(static_cast<T>(v.x))
 		, y(static_cast<T>(v.y))
 	{}
 
 	template <typename T, precision P>
 	template <typename U, precision Q>
-	GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(tvec3<U, Q> const & v)
+	constexpr GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(tvec3<U, Q> const & v)
 		: x(static_cast<T>(v.x))
 		, y(static_cast<T>(v.y))
 	{}
 
 	template <typename T, precision P>
 	template <typename U, precision Q>
-	GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(tvec4<U, Q> const & v)
+	constexpr GLM_FUNC_QUALIFIER tvec2<T, P>::tvec2(tvec4<U, Q> const & v)
 		: x(static_cast<T>(v.x))
 		, y(static_cast<T>(v.y))
 	{}

@@ -4,9 +4,9 @@
 
 #include <dlfcn.h>
 #include <graphics/Mainframe/Mainframe.h>
-#include <constants/constants.h>
 #include <graphics/scenes/Home/Home.h>
-#include <graphics/resources/VAO/VAO.h>
+#include <array>
+#include "util/math.h"
 
 int main() {
 

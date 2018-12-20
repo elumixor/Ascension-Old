@@ -1,3 +1,5 @@
+#include <utility>
+
 //
 // Created by Vladyslav Yazykov on 04/12/2018.
 //
@@ -7,138 +9,181 @@
 
 #include <cstdio>
 #include <cmath>
+#include <util/list.h>
+#include <util/Singleton.h>
+#include <cstring>
+#include <cstdlib>
+#include <glm/vec3.hpp>
+#include <util/map.h>
+#include <util/linked_map.h>
+#include <util/Bezier.h>
 #include "code_organizers.h"
 
 NAMESPACE(ASC, GRAPHICS)
         typedef float (*Easing)(float);
 
         namespace Easings {
-            float linear(float);
+#define Easing inline constexpr float
+            Easing linear(float) { return 1.f; }
+            Easing in(float t) {
+                return 1.f;
+            }
+            Easing  out(float t) {
+                return 0.5f;
+            }
+            Easing  in_out(float t) {
+                return 1.f;
+            }
+            template <const Bezier<float> &b>
+            float bezier(float t) {
+                return b(t) / b.integrated;
+            }
+#undef Easing
         }
 
-        class Animation;
+        /// Animable wrapper
+        class Animable {
+            /// Modification operation
+            typedef void (*Modify)(void *, void *, float);
+            typedef void (*Free)(void *);
+            Modify _modify;
+            Free _free;
 
-        extern Animation *animations;
-        extern Animation *end_animations;
+            /// Data pointer
+            void *_data;
+            void *_diff;
 
-        class Animation {
-            /// Animation class
-            /// \tparam T Animated type
+            /// Constructor
+            Animable(void *data, void *_diff, Modify modify, Free _free);
+        public:
+            ~Animable() {
+                _free(_diff);
+            }
+
+            /// Move constructor
+            Animable(Animable &&other) noexcept;
+            inline void *data() const { return _data; }
+
+            /// Modify data
+            inline void modify(float coefficient = 1.f) { _modify(_data, _diff, coefficient); }
+
+#define Tval(value) *(T*)(value)
+
+            /// Factory function
             template<typename T>
-            struct Ani {
-                static constexpr unsigned STEPS_PER_SECOND{200};
+            static Animable from(T *data, const T &diff) {
+                T *d = new T(diff);
 
-                T *data;
-                T diff;
+                return Animable(data, d, [](void *data, void *diff, float coef) {
+                    Tval(data) += Tval(diff) * coef;
 
-                unsigned steps{0};
-                unsigned current{0};
-                Easing easing{Easings::linear};
+                }, [](void *diff) {
+                    delete (T *) diff;
+                });
+            }
+#undef Tval
+        };
 
-                bool reversed{false};
+        namespace ani {
 
-                Ani(T *start, T finish, float seconds, Easing easing = Easings::linear) : data{start}, easing{easing} {
-                    steps = (unsigned) std::floor(seconds * STEPS_PER_SECOND);
-                    diff = (finish - *start) / (float) steps;
-                }
+            /// When triggered fluently changes animable property to another value
+            class Sustained {
+            protected:
+                unsigned steps;
+                mutable unsigned current{0};
+                mutable Animable animable;
+                Easing easing;
+            public:
+                Sustained(Animable animable, unsigned steps, Easing easing = Easings::linear);
+                virtual bool step() const;
 
-                /// Perform animation step
-                /// \return False if animation ended.
-                bool step() {
-                    if (reversed) {
-                        if (current == 0) return false;
-                        current--;
-                    } else {
-                        if (current == steps) return false;
-                        current++;
-                    }
+                template<typename F>
+                void on_finish(F f) {
 
-                    float percent = (float) current / steps;
-
-                    if (reversed) {
-                        *data -= diff * easing(percent);
-                    } else {
-                        *data += diff * easing(percent);
-                    }
-
-                    return true;
                 }
             };
 
-            /// Pointer to animation
-            void *ani{nullptr};
+            /// When active - moves to a state, then returns back
+            class Fleeting : Sustained {
+                bool _reversed{false};
+            public:
+                inline Fleeting(Animable animable, unsigned steps, Easing easing = Easings::linear) : Sustained{
+                        std::move(animable),
+                        steps, easing} {}
 
-            /// Linked list pointers
-            Animation *_next{nullptr}, *_previous{nullptr};
+                bool step() const override {
+                    if (_reversed) {
+                        if (current == 0)
+                            return false;
 
-            /// Animation step function
-            bool (*step_function)(void *);
+                        current--;
+                        animable.modify(-easing((float) current / steps));
 
-            /// Animation step function
-            void (*reverse_function)(void *);
+                        return true;
+                    } else {
+                        if (current == steps)
+                            return true;
 
-            void (*delete_function)(void *);
+                        current++;
+                        animable.modify(easing((float) current / steps));
 
+                        return true;
+                    }
+                }
+
+                void reverse() {
+                    _reversed = !_reversed;
+                }
+            };
+        }
+
+        /// Animations container
+        extern class Animations {
+            static constexpr unsigned STEPS_PER_SECOND{200};
+
+            list<ani::Sustained> _sustained;
+            linked_map<ani::Fleeting> _fleeting;
         public:
 
-            /// Register and start animation
+            /// Starts or resume animation
             template<typename T>
-            static void start(Animation **animation, T *start, T finish,
-                              float seconds, Easing easing = Easings::linear) {
-                if (!(*animation)) {
-                    if (!animations) {
-                        *animation = animations = end_animations = new Animation;
-                    } else {
-                        end_animations->_next = new Animation;
-                        end_animations->_next->_previous = end_animations;
-                        *animation = end_animations = end_animations->_next;
-                    }
+            ani::Sustained &sustained(T *data, T finish, float seconds, Easing easing = Easings::linear) {
+                unsigned steps{(unsigned) std::floor(seconds * STEPS_PER_SECOND)};
 
-                    (*animation)->step_function = [](void *ani) -> bool {
-                        return ((Ani<T> *) ani)->step();
-                    };
-
-                    (*animation)->reverse_function = [](void *ani) {
-                        auto p = (Ani<T> *) ani;
-                        p->reversed = !p->reversed;
-                    };
-
-                    (*animation)->delete_function = [](void *ani) {
-                        delete (Ani<T> *) ani;
-                    };
-
-                    (*animation)->ani = new Ani<T>(start, finish, seconds, easing);
-                }
+                return *_sustained.add(std::move(
+                        ani::Sustained(Animable::from(data, (finish - *data) / (float) steps), steps, easing)))->data;
             }
 
-            /// Perform step
-            inline void step() { if (!step_function(ani)) stop(); }
+            template<typename T>
+            ani::Fleeting &fleeting(CString id, T *data, T finish, float seconds, Easing easing = Easings::linear) {
+                unsigned steps{(unsigned) std::floor(seconds * STEPS_PER_SECOND)};
 
-            /// Interrupt animation at point
-            void stop() {
-                delete_function(ani);
+                auto fl = _fleeting[id];
 
-                if (!_previous)
-                    animations = nullptr;
-                else _previous->_next = _next;
-
-                if (_next) {
-                    _next->_previous = _previous;
+                if (fl.is_present()) {
+                    fl.value().reverse();
+                    return fl.value();
                 }
 
-
-                delete (this);
+                fl = std::move(ani::Fleeting(Animable::from(data, (finish - *data) / (float) steps), steps, easing));
+                return fl.value();
             }
 
-            /// Stop animation and launch in reverse
-            inline void reverse() { reverse_function(ani); }
+            inline bool is_present(CString id) { return _fleeting[id].is_present(); }
 
-            inline Animation *next() const { return _next; }
+            void reverse(CString id) {
+                _fleeting[id].value().reverse();
+            }
 
-            Animation &operator=(const Animation *other);
-        };
-
-        void free_animations();
+            void step() {
+                _sustained.for_each_indexed([&](const ani::Sustained &s, list<ani::Sustained>::iterator *it) {
+                    if (!s.step()) _sustained.remove(it);
+                });
+                _fleeting.for_each_indexed([&](const ani::Fleeting &s, linked_map<ani::Fleeting>::iterator *it) {
+                    if (!s.step()) _fleeting.remove(it);
+                });
+            }
+        } animations;
 N2
 
 #endif //ASCENSION_ANIMATION_H

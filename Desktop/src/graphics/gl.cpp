@@ -56,8 +56,6 @@ void GL::init(unsigned width, unsigned height, CString title, unsigned int vsync
 
     require(glewInit() == GLEW_OK, "Failed to initialize GLEW");
 
-    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-
     glfwSetFramebufferSizeCallback(window, resizeCallback);
     glfwSwapInterval(vsync);
 

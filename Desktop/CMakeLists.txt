@@ -62,7 +62,8 @@ set(src src/main.cpp
         src/graphics/scenes/keys/keys.h src/graphics/scenes/keys/keys.cpp
         src/graphics/scenes/transitions/HomeOverlay_tr.cpp src/graphics/scenes/transitions/HomeOverlay_tr.h
         src/util/Singleton.h
-        src/graphics/Framebuffer/Framebuffer.cpp src/graphics/Framebuffer/Framebuffer.h src/graphics/animation/animation.h src/graphics/animation/animation.cpp src/util/list.h src/util/FString.h src/util/FString.cpp src/util/literals.h)
+        src/graphics/Framebuffer/Framebuffer.cpp src/graphics/Framebuffer/Framebuffer.h src/graphics/animation/animation.h src/graphics/animation/animation.cpp src/util/list.h src/util/FString.h src/util/FString.cpp src/util/literals.h
+        src/util/map.h src/util/linked_map.h src/util/proxy.h src/util/Bezier.h src/util/math.h)
 
 if ("${CMAKE_CURRENT_LIST_DIR}/meshes" IS_NEWER_THAN "${CMAKE_CURRENT_LIST_DIR}/meshes/generated")
     file(REMOVE_RECURSE "${CMAKE_CURRENT_LIST_DIR}/meshes/generated")

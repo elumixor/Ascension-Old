@@ -18,6 +18,7 @@ NAMESPACE(ASC, GRAPHICS, SCENES)
                 RESOURCES::Figure *figure{nullptr};
                 unsigned bg_shader{0};
                 unsigned fg_shader{0};
+                float angle{0.f};
             };
 N3
 

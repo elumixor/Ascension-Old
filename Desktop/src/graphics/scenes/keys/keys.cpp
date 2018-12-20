@@ -4,9 +4,7 @@
 
 #include "keys.h"
 
-bool ASC::GRAPHICS::KEYS::release(Predicate condition) {
-    static bool pressed{false};
-
+bool ASC::GRAPHICS::KEYS::Key::release() const {
     if (condition()) {
         pressed = true;
     } else {
@@ -19,11 +17,9 @@ bool ASC::GRAPHICS::KEYS::release(Predicate condition) {
     return false;
 }
 
-bool ASC::GRAPHICS::KEYS::press(Predicate condition) {
-
-    static bool pressed{false};
-
+bool ASC::GRAPHICS::KEYS::Key::press() const{
     if (condition()) {
+        condition();
         if (!pressed) {
             pressed = true;
             return true;

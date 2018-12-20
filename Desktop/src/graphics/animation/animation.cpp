@@ -7,24 +7,6 @@
 
 using namespace ASC::GRAPHICS;
 
-Animation *ASC::GRAPHICS::animations{nullptr};
-Animation *ASC::GRAPHICS::end_animations{nullptr};
-
-void ASC::GRAPHICS::free_animations(){
-    LOG("freeing");
-    Animation *animation = animations;
-    while (animation) {
-        auto next = animation->next();
-        delete animation;
-        animation = next;
-    }
-}
-
-//void ASC::GRAPHICS::no_step(void *, float) {}
-
-float Easings::linear(float) {
-    return 1.f;
-}
 
 //void Animation::stop() {
 
@@ -41,7 +23,27 @@ float Easings::linear(float) {
 //    _step(data, easing(percent));
 //}
 
-Animation &Animation::operator=(const Animation *other) {
+//Animation &Animation::operator=(const Animation *other) {
 
-    return *this;
+//    return *this;
+//}
+
+Animations ASC::GRAPHICS::animations{};
+Animable::Animable(Animable &&other) noexcept : _modify{other._modify}, _free{other._free}, _data{other._data},
+                                                _diff{other._diff} {
+    other._data = other._diff = nullptr;
+}
+Animable::Animable(void *data, void *_diff, Animable::Modify modify, Animable::Free _free) : _modify{modify},
+                                                                                             _free{_free}, _data{data},
+                                                                                             _diff{_diff} {}
+ani::Sustained::Sustained(Animable animable, unsigned steps, Easing easing) :
+        steps{steps}, animable{std::move(animable)}, easing{easing} {}
+bool ani::Sustained::step() const {
+    if (current == steps)
+        return false;
+
+    current++;
+    animable.modify(easing((float) current / steps));
+
+    return true;
 }

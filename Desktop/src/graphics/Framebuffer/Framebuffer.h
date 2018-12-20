@@ -13,6 +13,9 @@ NAMESPACE(ASC, GRAPHICS)
             unsigned int texColorBuffer;
         public:
             Framebuffer();
+            explicit Framebuffer(float opacity) : Framebuffer() {
+                    this->opacity = opacity;
+            }
 
             virtual ~Framebuffer() = default;
 
