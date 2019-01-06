@@ -101,6 +101,8 @@ NAMESPACE(ASC, GRAPHICS)
                 void on_finish(F f) {
 
                 }
+
+//                virtual ~Sustained() = default;
             };
 
             /// When active - moves to a state, then returns back
@@ -134,6 +136,8 @@ NAMESPACE(ASC, GRAPHICS)
                 void reverse() {
                     _reversed = !_reversed;
                 }
+
+//                virtual ~Fleeting() = default;
             };
         }
 
@@ -150,8 +154,8 @@ NAMESPACE(ASC, GRAPHICS)
             ani::Sustained &sustained(T *data, T finish, float seconds, Easing easing = Easings::linear) {
                 unsigned steps{(unsigned) std::floor(seconds * STEPS_PER_SECOND)};
 
-                return *_sustained.add(std::move(
-                        ani::Sustained(Animable::from(data, (finish - *data) / (float) steps), steps, easing)))->data;
+                return *_sustained.add(
+                        ani::Sustained(Animable::from(data, (finish - *data) / (float) steps), steps, easing))->data;
             }
 
             template<typename T>
@@ -165,7 +169,7 @@ NAMESPACE(ASC, GRAPHICS)
                     return fl.value();
                 }
 
-                fl = std::move(ani::Fleeting(Animable::from(data, (finish - *data) / (float) steps), steps, easing));
+                fl = ani::Fleeting(Animable::from(data, (finish - *data) / (float) steps), steps, easing);
                 return fl.value();
             }
 

@@ -1,8 +1,16 @@
 cmake_minimum_required(VERSION 3.0)
 project(Ascension)
 
-#set(CMAKE_BUILD_TYPE Release)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_CXX_STANDARD 14)
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
 
 find_package(OpenGL REQUIRED)
 
@@ -16,16 +24,13 @@ set(GL_INCLUDES
         )
 include_directories(
         ${GL_INCLUDES}
-        src
-        src/graphics/scenes/TestScene/include
-)
+        src)
 
 set(ALL_LIBS
         ${OPENGL_LIBRARY}
         glfw
         glew
         )
-
 
 add_definitions(
         -DTW_STATIC
@@ -34,8 +39,6 @@ add_definitions(
         -DGLEW_STATIC
         -D_CRT_SECURE_NO_WARNINGS
 )
-
-#add_subdirectory(src/graphics/ascml)
 
 # Source files
 set(src src/main.cpp
@@ -53,14 +56,13 @@ set(src src/main.cpp
         src/graphics/scenes/Home/Home.cpp src/graphics/scenes/Home/Home.h
 
         src/graphics/resources/elements.h src/graphics/resources/elements.cpp
+        src/graphics/resources/VAO/VAO.cpp src/graphics/resources/VAO/VAO.h
         src/graphics/resources/objects/Base.h src/graphics/resources/objects/Base.h
         src/graphics/resources/objects/Point/Point.h src/graphics/resources/objects/Point/Point.cpp
         src/graphics/resources/objects/GradientBackgorund/GradientBackground.cpp src/graphics/resources/objects/GradientBackgorund/GradientBackground.h
-        src/graphics/resources/VAO/VAO.cpp src/graphics/resources/VAO/VAO.h
         src/graphics/resources/objects/Figure/Figure.cpp src/graphics/resources/objects/Figure/Figure.h
         src/graphics/scenes/overlays/Modules.cpp src/graphics/scenes/overlays/Modules.h
         src/graphics/scenes/keys/keys.h src/graphics/scenes/keys/keys.cpp
-        src/graphics/scenes/transitions/HomeOverlay_tr.cpp src/graphics/scenes/transitions/HomeOverlay_tr.h
         src/util/Singleton.h
         src/graphics/Framebuffer/Framebuffer.cpp src/graphics/Framebuffer/Framebuffer.h src/graphics/animation/animation.h src/graphics/animation/animation.cpp src/util/list.h src/util/FString.h src/util/FString.cpp src/util/literals.h
         src/util/map.h src/util/linked_map.h src/util/proxy.h src/util/Bezier.h src/util/math.h)

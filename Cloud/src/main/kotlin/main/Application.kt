@@ -1,6 +1,6 @@
 package main
 
-2import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication

@@ -44,8 +44,6 @@
 #define ERROR(message) fprintf(stderr, "ERROR: %s\n", String(message).c_str());
 #endif
 
-
-
 #define i_range(start, count) for (unsigned i = start; i < count; ++i)
 
 #define CRASH exit(1);

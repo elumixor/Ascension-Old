@@ -41,6 +41,7 @@
 #	endif
 #endif //GLM_SWIZZLE
 #include <cstddef>
+#include <iostream>
 
 namespace glm
 {
@@ -398,6 +399,9 @@ namespace glm
 
 	template <typename T, precision P>
 	GLM_FUNC_DECL bool operator!=(tvec2<T, P> const & v1, tvec2<T, P> const & v2);
+
+	template<typename T, precision P>
+	GLM_FUNC_QUALIFIER std::ostream& operator<<(const std::ostream& os, const tvec2<T, P> &v);
 }//namespace glm
 
 #ifndef GLM_EXTERNAL_TEMPLATE

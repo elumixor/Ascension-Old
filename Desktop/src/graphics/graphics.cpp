@@ -11,7 +11,8 @@ using namespace ASC::CONSTANTS;
 Globals ASC::GRAPHICS::globals{{0.0, 0.0},
                                {0.0, 0.0},
                                {},
-                               {0,   0}};
+                               {0,   0},
+                               nullptr};
 
 std::map<std::string, unsigned> ASC::GRAPHICS::resources{};
 

@@ -913,4 +913,10 @@ namespace glm
 	{
 		return (v1.x != v2.x) || (v1.y != v2.y);
 	}
+
+	template<typename T, precision P>
+	GLM_FUNC_QUALIFIER std::ostream& operator<<(std::ostream& os, const tvec2<T, P> &v) {
+		os << "(" << v.x << " " << v.y << ")";
+		return os;
+	}
 }//namespace glm

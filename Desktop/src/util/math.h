@@ -19,8 +19,8 @@ namespace math {
     }
 
     template<typename T>
-    constexpr T pow(T num, int _pow) {
-        return (_pow >= sizeof(int) * 8) ? 0 :
+    constexpr T pow(T num, unsigned _pow) {
+        return (_pow >= sizeof(unsigned) * 8) ? 0 :
                _pow == 0 ? 1 : num * pow(num, _pow - 1);
     }
 

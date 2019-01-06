@@ -8,6 +8,7 @@
 #include "util/math.h"
 #include "initializer_list"
 #include "utility"
+#include "iostream"
 
 template<typename Point>
 class Bezier final {
@@ -34,12 +35,13 @@ public:
     ~Bezier() { delete[] C; }
 
     inline const Point &operator[](size_t i) const { return C[i]; }
-    Point &&operator()(float t) const {
+
+    Point operator()(float t) const {
         Point r{};
         for (size_t j{0}; j <= n; j++)
             r += math::pow(t, (int) j) * C[j];
 
-        return std::move(r);
+        return r;
     }
 
     Bezier(const Bezier &) = delete;

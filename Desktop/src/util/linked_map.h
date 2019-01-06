@@ -60,7 +60,7 @@ class linked_map {
             if (!length) {
                 return this;
             } else {
-                const char k = *key;
+                auto k = (size_t)*key;
                 if (!children[k]) children[k] = new Node();
                 return children[k]->get(key + 1, length - 1);
             }
