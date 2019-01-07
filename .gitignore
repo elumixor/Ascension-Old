@@ -193,3 +193,4 @@ Cloud/target/generated-sources/
 Desktop/meshes/__pycache__/
 Desktop/meshes/vertex.pyc
 Desktop/src/graphics/ascml/__pycache__/
+!Desktop/meshes/*.obj
