@@ -34,7 +34,9 @@ static Bezier<float> easing{0.f, 0.f, 2.f, 0.f};
 
 void SCENES::Home::render() {
     static float progress{0.f};
-    static Bezier<glm::vec3> b{{1.f, 0.f, 1.f},
+    static Bezier<glm::vec3> b{
+        {1.f, 0.f, 1.f},
+        {2.f, 5.f, 1.f},
                                {3.f, 0.f, -.5f}};
 
     glDisable(GL_DEPTH_TEST);
