@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+  search = false;
+  modules = false;
+
+  @HostListener('document:keydown', ['$event'])
+  showSearch(event: KeyboardEvent) {
+    if (event.ctrlKey) {
+      if (event.code === "KeyM") {
+        this.modules = true;
+      } else if (event.code === "KeyF") {
+        this.search = true;
+      }
+    }
+  }
 }

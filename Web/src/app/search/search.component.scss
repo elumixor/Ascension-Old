@@ -1,0 +1,16 @@
+input {
+  position: relative;
+  width: 60%;
+  margin: 0;
+  padding: 0;
+  height: 20%;
+  border: none;
+  top: 15%;
+  left: 20%;
+  background-color: transparent;
+  font-size: 10vw;
+
+  &:focus {
+    outline: none;
+  }
+}
