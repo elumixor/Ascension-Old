@@ -10,8 +10,10 @@ import {
 
 @Component({
   selector: 'app-overlay',
-  templateUrl: './overlay.component.html',
-  styleUrls: ['./overlay.component.scss'],
+  template: `<div [@openClose]="_displayed ? 'displayed' : 'hidden'" class="filler">
+              <ng-content></ng-content>
+            </div>`,
+  styles: [`.filler { background-color: rgba(0, 0, 0, 0.9); }`],
   animations: [
     trigger("openClose", [
       state('hidden', style({
@@ -34,9 +36,14 @@ export class OverlayComponent {
   private _displayed = false;
   inView = new EventEmitter<void>();
 
-  @Input() set displayed(value: boolean) {
+  @Input('displayed')
+  set displayed(value: boolean) {
     this._displayed = value;
     this.inView.emit();
+  }
+
+  get displayed() {
+    return this._displayed;
   }
 
   constructor() {

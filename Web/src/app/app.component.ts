@@ -1,4 +1,5 @@
 import {Component, HostListener} from '@angular/core';
+import {ModulesControllerService, Module} from "./services/modules-controller.service";
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,17 @@ import {Component, HostListener} from '@angular/core';
 export class AppComponent {
   search = false;
   modules = false;
+
+  get Module() {
+    return Module
+  }
+
+  get currentModule() {
+    return ModulesControllerService.active
+  }
+
+  constructor() {
+  }
 
   @HostListener('document:keydown', ['$event'])
   showSearch(event: KeyboardEvent) {

@@ -1,17 +1,14 @@
-<div class="filler">
-  <div class="hints">
-    <h3 class="title"> Ascension </h3>
-    <h5><span class="label"> Search </span> <span class="white"> ⌃F </span></h5>
-    <h5><span class="label"> Modules </span> <span class="white"> ⌃M </span></h5>
-  </div>
+<div [ngSwitch]="currentModule">
+  <app-home *ngSwitchCase="Module.HOME"></app-home>
+  <app-knowledge *ngSwitchCase="Module.KNOWLEDGE"></app-knowledge>
+  <app-strategy *ngSwitchCase="Module.STRATEGY"></app-strategy>
 </div>
 
-
 <app-overlay [displayed]="search" (close)="search = false">
-  <app-search></app-search>
+  <app-search-overlay></app-search-overlay>
 </app-overlay>
 
 <app-overlay [displayed]="modules" (close)="modules = false">
-  <app-modules></app-modules>
+  <app-modules-overlay></app-modules-overlay>
 </app-overlay>
 
