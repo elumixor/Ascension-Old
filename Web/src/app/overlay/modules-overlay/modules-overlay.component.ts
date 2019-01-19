@@ -8,20 +8,17 @@ import {Module, ModulesControllerService} from "../../services/modules-controlle
 
 @Component({
   selector: 'app-modules-overlay',
-  template: `<h5 *ngFor="let x of elements; index as i"
-              [style.top.px]="x.top"
-              [style.left.px]="x.left"
-              [style.text-shadow]="'0 0 10px ' + x.color"
-              #mark>{{x.name}}</h5>`,
-  styles: [`h5 {
-            position: fixed;
-            margin: 0;
-            color: black;
-            font-size: 3rem;
-          }`]
+  templateUrl: `./modules-overlay.component.html`,
+  styles: [`
+    .name {
+        text-shadow: black 0px 0px 25px;
+        color: rgba(255, 255, 255, 0.7)
+    }
+  `]
 })
 export class ModulesOverlayComponent implements AfterViewInit, AfterViewChecked {
   @ViewChildren("mark") viewChildren: QueryList<ElementRef>;
+
   private positions: {
     left: number
     top: number
@@ -30,15 +27,18 @@ export class ModulesOverlayComponent implements AfterViewInit, AfterViewChecked 
   }[] = [];
 
   elements: {
-    name: string,
+    readonly name: string,
     left: number, top: number,
-    color: string,
-    module: Module
+    readonly color: string,
+    readonly module: Module
   }[] = [
-    {name: 'Kn', left: 0, top: 0, color: '#7a00ff', module: Module.KNOWLEDGE},
-    {name: 'St', left: 0, top: 0, color: '#ff117e', module: Module.STRATGY},
+    {name: 'Home',      left: 0, top: 0, color: '#ffffffc0', module: Module.HOME},
+    {name: 'Knowledge', left: 0, top: 0, color: '#7a00ffc0', module: Module.KNOWLEDGE},
+    {name: 'Strategy',  left: 0, top: 0, color: '#ff117ec0', module: Module.STRATGY},
   ];
 
+  readonly maxRows = 4;
+  columns: number[] = null;
 
   constructor(private overlay: OverlayComponent, private changeDetector: ChangeDetectorRef) {
   }
@@ -53,6 +53,7 @@ export class ModulesOverlayComponent implements AfterViewInit, AfterViewChecked 
         height: item.nativeElement.clientHeight / 2,
       });
     });
+    this.columns = new Array(Math.floor(this.elements.length / this.maxRows) + 1);
   }
 
   ngAfterViewChecked() {
@@ -76,7 +77,7 @@ export class ModulesOverlayComponent implements AfterViewInit, AfterViewChecked 
   openModule(event: KeyboardEvent) {
     if (this.overlay.displayed)
       this.elements.forEach((value, index) => {
-        if (event.code === 'Digit' + (index + 1)) {
+        if (event.code === 'Digit' + (index)) {
           ModulesControllerService.active = value.module;
         }
       })

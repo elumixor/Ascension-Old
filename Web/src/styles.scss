@@ -2,6 +2,7 @@
 html * {
   color: rgba(255,255, 255, .7);
   font-family: Arial, serif !important;
+  font-size: 32px;
 }
 
 .filler {
@@ -11,3 +12,11 @@ html * {
   top: 0;
   position: absolute;
 }
+
+.shortcut {
+  text-shadow: 0 5px 5px rgba(0,0,0,.5);
+  color: rgba(196, 80, 0, 0.82);
+  font-weight: 900;
+  text-align: center;
+}
+
