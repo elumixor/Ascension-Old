@@ -1,9 +1,9 @@
 <table style="width: 80%; height: 50%; top: 15%; left: 10%; position: absolute; border-spacing: 10px 30px;">
   <td *ngFor="let _ of columns; index as i"
       [style.width.%]="100 / columns">
-    <tr *ngFor="let x of elements | transform:'range':(i * maxRows):((i + 1) * maxRows); index as k">
-      <td class="shortcut" width="20%">{{i * maxRows + k}}</td>
-      <td class="name">{{x.name}}</td>
+    <tr *ngFor="let x of modulesService.modulesAsArray | transform:'range':(i * maxRows):((i + 1) * maxRows); index as k">
+      <td class="shortcut fz4" width="20%">{{i * maxRows + k}}</td>
+      <td class="fz4">{{x.name}}</td>
     </tr>
   </td>
 </table>

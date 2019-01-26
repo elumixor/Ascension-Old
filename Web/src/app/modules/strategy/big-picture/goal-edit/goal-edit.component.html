@@ -1,0 +1,39 @@
+<!--<div class="background">-->
+<!--<div class="image" [style.background-image]="'url(\'./assets/download.jpeg\')'" #background></div>-->
+<!--<div class="completion" [style.height.%]="90 * completion"></div>-->
+<!--</div>-->
+
+<!--<div class="fullscreen" style="background: linear-gradient(25deg, #464444a6, #484848ba);"></div>-->
+
+<input type="text" class="fz3"
+       [(ngModel)]="temporary.name"
+       placeholder="Your goal is..."
+       style="margin: 50px"
+       #input>
+<textarea placeholder="Why do you want to achieve it? What important?"
+          [(ngModel)]="temporary.description" cols="30" rows="10"
+          style="width: 100%;
+          height: calc(100% - 65px); padding: 0; bottom: 0; margin-top: 15px;
+          position: relative; text-shadow: 0 0 5px #0000008c; font-size: .6em; resize: none;">
+</textarea>
+<!--<input type="file" (change)="photoChanged($event)">-->
+
+
+<!--<div style="overflow: hidden; width: 100px; opacity: 0; pointer-events: none">-->
+<!--<span style="font-size: 3rem; white-space: pre" #span>{{name}}</span>-->
+<!--</div>-->
+
+
+<!--<div class="bottomButtons">-->
+<!--<div>-->
+<!--<img src="./assets/icons/back.svg" alt="revert" (click)="cancel()">-->
+<!--<img *ngIf="canDelete" src="./assets/icons/delete-button.svg" alt="delete" (click)="delete()">-->
+<!--<img *ngIf="edited" src="./assets/icons/confirm.svg" alt="confirm" (click)="confirm()">-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="leftButtons">-->
+<!--<img src="./assets/icons/picture.svg" alt="no"><br><br><br>-->
+<!--<img src="./assets/icons/up-arrow.svg" alt="no"><br>-->
+<!--<img src="./assets/icons/down-arrow.svg" alt="no">-->
+<!--</div>-->

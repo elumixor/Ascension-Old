@@ -1,3 +1,15 @@
-<p>
-  strategy works!
-</p>
+<div style="position: fixed; width: 100%; top: 0; left: 0; z-index: 10;">
+  <span
+    *ngFor="let x of module.submodules"
+    style="width: 33.3%; display: inline-block; text-align: center;"
+    [class.active]="module.selected === x"
+    class="fz7"
+    (click)="module.selected = x"
+  >{{x}}</span>
+</div>
+
+<div [ngSwitch]="module.selected" class="fullscreen">
+  <app-big-picture *ngSwitchCase="module.submodules[0]"></app-big-picture>
+  <app-stages *ngSwitchCase="module.submodules[1]"></app-stages>
+  <app-routine *ngSwitchCase="module.submodules[2]"></app-routine>
+</div>

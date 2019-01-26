@@ -1,0 +1,14 @@
+<div *ngIf="!editing">
+  <app-goal *ngFor="let goal of module.goals" [goal]="goal" (select)="editedGoal = goal"></app-goal>
+</div>
+
+<app-goal-edit *ngIf="editing"
+               [goal]="editedGoal"
+               (cancel)="editFinished()"
+               (confirm)="addGoal($event)"
+               (delete)="deleteGoal($event)"></app-goal-edit>
+
+<app-centered *ngIf="showCreationHint" (click)="newGoal()" centered>
+  <span class="shortcut">⌃N</span>
+  <span>new goal or task</span>
+</app-centered>

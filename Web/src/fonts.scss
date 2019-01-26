@@ -1,0 +1,11 @@
+@mixin fzx {
+  $max: 5;
+
+  @for $i from 1 to ($max + 1) {
+    .fz#{$i} {
+      font-size: (($max + 1) - $i) + em
+    }
+  }
+}
+
+@include fzx;

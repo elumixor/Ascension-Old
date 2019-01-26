@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {KnowledgeModule} from "./knowledge.module";
 
 @Component({
   selector: 'app-knowledge',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KnowledgeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private module: KnowledgeModule) { }
 
   ngOnInit() {
   }

@@ -1,14 +1,16 @@
-<div [ngSwitch]="currentModule">
-  <app-home *ngSwitchCase="Module.HOME"></app-home>
-  <app-knowledge *ngSwitchCase="Module.KNOWLEDGE"></app-knowledge>
-  <app-strategy *ngSwitchCase="Module.STRATEGY"></app-strategy>
+<app-background></app-background>
+
+<div [ngSwitch]="modulesService.currentModule">
+  <app-home       *ngSwitchCase="modulesService.modules.home"      ></app-home>
+  <app-knowledge  *ngSwitchCase="modulesService.modules.knowledge" ></app-knowledge>
+  <app-strategy   *ngSwitchCase="modulesService.modules.strategy"  ></app-strategy>
 </div>
 
-<app-overlay [displayed]="search" (close)="search = false">
+<app-overlay [displayed]="searchShown" (close)="closeOverlay()">
   <app-search-overlay></app-search-overlay>
 </app-overlay>
 
-<app-overlay [displayed]="modules" (close)="modules = false">
+<app-overlay [displayed]="modulesShown" (close)="closeOverlay()">
   <app-modules-overlay></app-modules-overlay>
 </app-overlay>
 

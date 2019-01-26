@@ -1,22 +1,66 @@
 /* You can add global styles to this file, and also import other style files */
-html * {
-  color: rgba(255,255, 255, .7);
-  font-family: Arial, serif !important;
-  font-size: 32px;
+@import "fonts.scss";
+
+html {
+  background-color: black;
+  * {
+    background-color: transparent;
+    color: rgba(255, 255, 255, .7);
+    font-family: Arial, serif;
+    font-size: 18px;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
-.filler {
+body {
+  margin: 0;
+}
+
+.fullscreen {
   height: 100%;
   width: 100%;
   left: 0;
   top: 0;
-  position: absolute;
+  position: fixed;
+  z-index: -1;
 }
 
 .shortcut {
-  text-shadow: 0 5px 5px rgba(0,0,0,.5);
+  text-shadow: 0 5px 5px rgba(0, 0, 0, .5);
   color: rgba(196, 80, 0, 0.82);
   font-weight: 900;
   text-align: center;
+  margin: 5px;
 }
 
+.inset {
+  background-color: #565656;
+  color: transparent;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  text-shadow: 0px 2px 0px rgba(255, 255, 255, 0.5);
+  top: -2px;
+  position: relative;
+}
+
+.centerWrapper {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+
+  > * {
+    position: relative;
+    left: -50%;
+  }
+}
+
+// todo:
+// text labels, hotkeys, inputs
+// centered elements
+// color scheme..
+// auto resizable input font
