@@ -194,3 +194,12 @@ Desktop/meshes/__pycache__/
 Desktop/meshes/vertex.pyc
 Desktop/src/graphics/ascml/__pycache__/
 !Desktop/meshes/*.obj
+.angular-cli.json
+.editorconfig
+e2e/
+karma.conf.js
+package-lock.json
+package.json
+protractor.conf.js
+tsconfig.json
+tslint.json
